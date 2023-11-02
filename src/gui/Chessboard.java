@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class Chessboard extends JFrame {
 
-    final static int CHESS_DIMENSION = 10;
+    final static int CHESS_DIMENSION = 7;
     Chessboard(){
         this.setSize(700, 700);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
