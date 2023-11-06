@@ -2,9 +2,12 @@ package gui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-public class Chessboard extends JFrame {
+public class Chessboard extends JFrame implements MouseListener {
 
+    public Color onHold = Color.pink;
     final static int CHESS_DIMENSION = 7;
     Chessboard(){
         this.setSize(700, 700);
@@ -25,11 +28,38 @@ public class Chessboard extends JFrame {
                 } else {
                     labels[i][j].setBackground(Color.black);
                 }
+                labels[i][j].addMouseListener(this);
             }
         }
     }
 
     public static void main(String[] args) {
         new Chessboard().setVisible(true);
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        onHold = ((JLabel) e.getSource()).getBackground();
+        ((JLabel) e.getSource()).setBackground(Color.yellow);
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        ((JLabel) e.getSource()).setBackground(onHold);
     }
 }

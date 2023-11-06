@@ -26,17 +26,18 @@ public class MouseListening extends JFrame implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-//        panel.setBackground(Color.blue);
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
         panel.setBackground(Color.blue);
     }
 
     @Override
-    public void mouseReleased(MouseEvent e) {
-        panel.setBackground(Color.green);
+    public void mousePressed(MouseEvent e) {
+//        panel.setBackground(Color.blue);
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e)
+    {
+//        panel.setBackground(Color.green);
     }
 
     @Override
