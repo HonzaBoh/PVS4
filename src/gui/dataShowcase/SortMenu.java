@@ -13,6 +13,7 @@ public class SortMenu extends JPanel {
     public JButton outputButton;
 
     JRadioButton name, release, rating, duration;
+    JCheckBox revBox;
 
     public SortMenu() {
         this.setLayout(new FlowLayout());
@@ -31,7 +32,9 @@ public class SortMenu extends JPanel {
 
         outputButton = new JButton("Sort!");
 
+        revBox = new JCheckBox("Reversed?");
 
+        this.add(revBox);
         this.add(label);
         this.add(name);
         this.add(release);

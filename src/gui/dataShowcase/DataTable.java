@@ -3,10 +3,14 @@ package gui.dataShowcase;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class DataTable extends JFrame {
@@ -27,8 +31,44 @@ public class DataTable extends JFrame {
         table.setEnabled(false);
         JScrollPane sp = new JScrollPane(table);
 
+
+        menu.outputButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JRadioButton[] buttons = {menu.duration, menu.release, menu.name, menu.rating};
+                String checkedText = "";
+                Comparator<Record> toSort = Record.BY_NAME;
+                for (int i = 0; i < buttons.length; i++) {
+                    if (buttons[i].isSelected()){
+                        checkedText = buttons[i].getText();
+                    }
+                }
+                switch (checkedText){
+                    case "Name":
+                        toSort = Record.BY_NAME;
+                        break;
+                    case "Release":
+                        toSort = Record.BY_YEAR;
+                        break;
+                    case "Duration":
+                        toSort = Record.BY_DURATION;
+                        break;
+                    case "Rating":
+                        toSort = Record.BY_RATING;
+                        break;
+                }
+                if (menu.revBox.isSelected()){
+                    data.sort(toSort.reversed());
+                } else{
+                    data.sort(toSort);
+                }
+
+                showData();
+            }
+        });
+
         this.add(sp, BorderLayout.CENTER);
-        this.setSize(500, 600);
+        this.setSize(600, 700);
         this.setResizable(false);
     }
 
