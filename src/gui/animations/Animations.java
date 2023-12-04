@@ -30,8 +30,8 @@ class Canvas extends JPanel implements ActionListener {
     Canvas(){
         this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         this.setBackground(Color.black);
-        bouncingImage = new ImageIcon("smallShip.png").getImage();
-        backgroundImage = new ImageIcon("space.png").getImage();
+        bouncingImage = new ImageIcon("bee.png").getImage();
+        backgroundImage = new ImageIcon("flowers.png").getImage();
         timer = new Timer(10, this);
         timer.start();
     }
