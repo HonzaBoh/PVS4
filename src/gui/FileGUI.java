@@ -12,9 +12,10 @@ public class FileGUI extends JFrame {
     FileGUI(){
         this.setSize(500,400 );
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setLayout(new GridLayout(3,1));
+        this.setLayout(new GridLayout(4,1));
         MyLabel fileName = new MyLabel("TMP");
         MyLabel fileInfo = new MyLabel("TMP");
+        MyLabel fileType = new MyLabel("TMP");
         JButton button = new JButton("Hit me");
         button.setFont(new Font("Consolas", Font.BOLD, 22));
         button.addActionListener(new ActionListener() {
@@ -39,11 +40,14 @@ public class FileGUI extends JFrame {
                     File f = fileChooser.getSelectedFile();
                     fileName.setText(f.getName());
                     fileInfo.setText((f.length()/1024) + " kb");
+                    String type = f.getName().substring(f.getName().lastIndexOf("."));
+                    fileType.setText(type);
                 }
             }
         });
         this.add(button);
         this.add(fileName);
+        this.add(fileType);
         this.add(fileInfo);
     }
 
