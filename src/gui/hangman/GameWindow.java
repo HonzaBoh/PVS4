@@ -4,6 +4,8 @@ import gui.ProgressBar;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class GameWindow extends JFrame {
 
@@ -39,19 +41,41 @@ public class GameWindow extends JFrame {
         //input text:
         inputField = new JTextField("TMP");
         inputField.setFont(new Font("MV Boli", Font.PLAIN, 32 ));
+        inputField.setHorizontalAlignment(SwingConstants.CENTER);
 
         //button setting
         submitButton = new JButton("Guess");
         submitButton.setFont(new Font("MV Boli", Font.PLAIN, 32 ));
+        submitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // TODO: 07.12.2023 Osetrit vstupy 
+                makeAGuess(inputField.getText());
+            }
+        });
 
         inputPanel.setLayout(new FlowLayout());
         inputPanel.add(inputField);
         inputPanel.add(submitButton);
 
         this.add(progressBar, BorderLayout.NORTH);
-//        this.pack();
+        this.pack();
+        this.setSize(this.getWidth(), 700);
     }
 
+    void makeAGuess(String guess){
+        if (label.secret.contains(guess)){
+            System.out.println("Guess!");
+            label.guessed.add(guess);//pridam do mnoziny uhadnutych pismen
+            // TODO: 07.12.2023  odhalovani pismen
+        } else {
+            progressBar.setValue( progressBar.getValue() - 1);
+            if (progressBar.getValue() < 1){
+                label.setText("GAME OVER!");
+            }
+        }
+        // TODO: 07.12.2023 Ukoncit hru
+    }
     public static void main(String[] args) {
         new GameWindow().setVisible(true);
     }
