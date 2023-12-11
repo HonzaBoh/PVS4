@@ -50,7 +50,7 @@ public class GameWindow extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // TODO: 07.12.2023 Osetrit vstupy 
-                makeAGuess(inputField.getText());
+                makeAGuess(inputField.getText().charAt(0));
             }
         });
 
@@ -63,8 +63,9 @@ public class GameWindow extends JFrame {
         this.setSize(this.getWidth(), 700);
     }
 
-    void makeAGuess(String guess){
-        if (label.secret.contains(guess)){
+    void makeAGuess(char guess){
+        //aby nebyl pouzit contains() <- ten chce vic CharSequence (vice charu/string)
+        if (label.secret.indexOf(guess) >= 0){
             System.out.println("Guess!");
             label.guessed.add(guess);//pridam do mnoziny uhadnutych pismen
             // TODO: 07.12.2023  odhalovani pismen

@@ -16,7 +16,7 @@ public class SecretLabel extends JLabel {
    public List<String> words;
    public String secret;
    public String text;
-   HashSet<String> guessed;
+   HashSet<Character> guessed;
 
     SecretLabel(){
         guessed = new HashSet<>();
