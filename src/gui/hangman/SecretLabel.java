@@ -44,6 +44,7 @@ public class SecretLabel extends JLabel {
                 text += " _";
             }
         }
+        this.setText(text);
     }
 
     void loadWords(String path){

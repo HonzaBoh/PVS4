@@ -16,7 +16,7 @@ public class GameWindow extends JFrame {
 
     GameWindow(){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(700, 700);
+        this.setSize(800, 700);
         init();
     }
 
@@ -68,14 +68,19 @@ public class GameWindow extends JFrame {
         if (label.secret.indexOf(guess) >= 0){
             System.out.println("Guess!");
             label.guessed.add(guess);//pridam do mnoziny uhadnutych pismen
+            label.reprint();
+            this.pack();
+            this.setSize(this.getWidth(), 700);
             // TODO: 07.12.2023  odhalovani pismen
         } else {
             progressBar.setValue( progressBar.getValue() - 1);
             if (progressBar.getValue() < 1){
                 label.setText("GAME OVER!");
+                //zabrani v dalsimu posilani
+                submitButton.setEnabled(false);
+                inputField.setEnabled(false);
             }
         }
-        // TODO: 07.12.2023 Ukoncit hru
     }
     public static void main(String[] args) {
         new GameWindow().setVisible(true);
