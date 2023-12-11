@@ -71,7 +71,7 @@ public class GameWindow extends JFrame {
             label.reprint();
             this.pack();
             this.setSize(this.getWidth(), 700);
-            // TODO: 07.12.2023  odhalovani pismen
+
         } else {
             progressBar.setValue( progressBar.getValue() - 1);
             if (progressBar.getValue() < 1){
