@@ -13,10 +13,12 @@ public class GameWindow extends JFrame {
     JButton submitButton;
     JTextField inputField;
     SecretLabel label;
+    int difficulty;
 
-    GameWindow(){
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    GameWindow(int difficulty){
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setSize(800, 700);
+        this.difficulty = difficulty;
         init();
     }
 
@@ -30,7 +32,7 @@ public class GameWindow extends JFrame {
         progressBar.setStringPainted(true);
         progressBar.setFont(new Font("MV Boli", Font.BOLD, 36));
 
-        label = new SecretLabel();
+        label = new SecretLabel(difficulty);
         this.add(label, BorderLayout.CENTER);
 
         JPanel inputPanel = new JPanel();
@@ -39,9 +41,10 @@ public class GameWindow extends JFrame {
         this.add(inputPanel, BorderLayout.SOUTH);
 
         //input text:
-        inputField = new JTextField("TMP");
+        inputField = new JTextField("");
         inputField.setFont(new Font("MV Boli", Font.PLAIN, 32 ));
         inputField.setHorizontalAlignment(SwingConstants.CENTER);
+        inputField.setPreferredSize(new Dimension(60,60));
 
         //button setting
         submitButton = new JButton("Guess");
@@ -49,8 +52,15 @@ public class GameWindow extends JFrame {
         submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO: 07.12.2023 Osetrit vstupy 
-                makeAGuess(inputField.getText().charAt(0));
+
+                if (inputField.getText().length() > 1){
+                    incorrect(2);
+                } else {
+                    char c = inputField.getText().charAt(0);
+                    makeAGuess(Character.toLowerCase(c));
+                }
+                inputField.setText("");
+
             }
         });
 
@@ -71,18 +81,25 @@ public class GameWindow extends JFrame {
             label.reprint();
             this.pack();
             this.setSize(this.getWidth(), 700);
-
-        } else {
-            progressBar.setValue( progressBar.getValue() - 1);
-            if (progressBar.getValue() < 1){
-                label.setText("GAME OVER!");
-                //zabrani v dalsimu posilani
+            if (!label.text.contains("_")){
                 submitButton.setEnabled(false);
                 inputField.setEnabled(false);
+                progressBar.setValue(10);
+                progressBar.setForeground(Color.orange);
+                progressBar.setString("Winner!");
             }
+        } else {
+            incorrect(1);
         }
     }
-    public static void main(String[] args) {
-        new GameWindow().setVisible(true);
+
+    private void incorrect(int toRemove){
+        progressBar.setValue( progressBar.getValue() - toRemove);
+        if (progressBar.getValue() < toRemove){
+            label.setText("GAME OVER!");
+            //zabrani v dalsimu posilani
+            submitButton.setEnabled(false);
+            inputField.setEnabled(false);
+        }
     }
 }
