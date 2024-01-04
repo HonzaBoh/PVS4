@@ -1,6 +1,8 @@
 package gui.hangman;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,8 +28,29 @@ public class MainWindow extends JFrame {
 
         difficultyLabel = new JLabel("TMP");
         sliderPanel.add(difficultySlider);
+
+        difficultyLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        difficultyLabel.setVerticalAlignment(SwingConstants.CENTER);
+
+        difficultyLabel.setFont(new Font("Consolas", Font.BOLD, 24));
         sliderPanel.add(difficultyLabel);
-        startButton.addActionListener(new ActionListener() {
+
+        difficultySlider.setPaintTicks(true);
+        difficultySlider.setMinorTickSpacing(1);
+        difficultySlider.setPaintTrack(true);
+        difficultySlider.setMajorTickSpacing(2);
+        difficultySlider.setPaintLabels(true);
+
+        difficultySlider.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+//                System.out.println("moved");
+                difficultyLabel.setText("Difficulty: " + difficultySlider.getValue());
+            }
+        });
+
+        difficultyLabel.setText("Difficulty: " + difficultySlider.getValue());
+    startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new GameWindow(42).setVisible(true);
