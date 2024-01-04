@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
@@ -50,7 +51,15 @@ public class SecretLabel extends JLabel {
 
     void loadWords(String path){
         try {
-            words = Files.readAllLines(Paths.get(path));
+            List<String> lines = Files.readAllLines(Paths.get(path));
+            String[] pair;
+            words = new ArrayList<>();
+            for (String line : lines){
+                pair = line.split(";");
+                if (Integer.parseInt(pair[0]) == difficulty){
+                    words.add(pair[1]);
+                }
+            }
         } catch (IOException e){
             System.out.println(":/");
         }

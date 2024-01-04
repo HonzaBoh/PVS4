@@ -53,7 +53,8 @@ public class MainWindow extends JFrame {
     startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new GameWindow(42).setVisible(true);
+                new GameWindow(difficultySlider.getValue()).setVisible(true);
+                System.out.println("Difficulty set to: " + difficultySlider.getValue());
             }
         });
 
