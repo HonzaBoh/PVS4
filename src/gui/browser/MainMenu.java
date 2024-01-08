@@ -78,7 +78,9 @@ public class MainMenu extends JFrame implements ActionListener{
             new CardMenu().setVisible(true);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws UnsupportedLookAndFeelException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+
+        UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel");
         MainMenu loader = new MainMenu();
 //        MainMenu.personData.add(new Person("Larry","Hydinger",46,225228,"icon.png"));
         loader.setVisible(true);
