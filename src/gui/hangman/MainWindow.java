@@ -71,7 +71,7 @@ public class MainWindow extends JFrame {
     }
 
     public static void main(String[] args) throws UnsupportedLookAndFeelException, ClassNotFoundException, InstantiationException, IllegalAccessException {
-        UIManager.setLookAndFeel("com.formdev.flatlaf.FlatIntelliJLaf");
+             UIManager.setLookAndFeel("com.formdev.flatlaf.FlatIntelliJLaf");
 //        System.out.println(UIManager.getSystemLookAndFeelClassName());
         new MainWindow().setVisible(true);
     }
