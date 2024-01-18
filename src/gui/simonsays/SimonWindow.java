@@ -10,6 +10,9 @@ public class SimonWindow extends JFrame {
 
     ArrayList<SimonButton> buttons = new ArrayList<>();
     String sequence;
+    String input = "";
+
+    final int DIFFICULTY = 5;
 
     String getSequence(int length){
         String sequence = "";
@@ -35,7 +38,11 @@ public class SimonWindow extends JFrame {
                     }
                     toHighlight.setBackground(original);
                     toHighlight.paintImmediately(0,0,getWidth(),getHeight());
-
+                    try {
+                        Thread.sleep(time);
+                    } catch (InterruptedException e) {
+                        System.out.println("Thread died :/");
+                    }
                 }
             }
         }
@@ -48,14 +55,16 @@ public class SimonWindow extends JFrame {
 
         this.setLayout(new BorderLayout());
         JButton startButton = new JButton("Play");
+        JButton replayButton = new JButton("Replay sequence");
+        replayButton.setEnabled(false);
         JPanel gridPanel = new JPanel();
         JPanel buttonsPanel = new JPanel();
         buttonsPanel.setLayout(new GridLayout(1,2));
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                sequence = getSequence(5);
-                highlightSequence(500,new Color(0x03F825));
+                replayButton.setEnabled(true);
+                resetGame();
 //                gridPanel.paintImmediately(0,0,getWidth(),getHeight());
             }
         });
@@ -68,13 +77,24 @@ public class SimonWindow extends JFrame {
             toAdd.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    input += toAdd.getText();
+                    System.out.println("Input: " + input);
+                    if (input.length() == DIFFICULTY){
+                        boolean win;
+                            if (sequence.equals(input)){
+                                win = true;
+                            } else {
+                                win = false;
+                            }
+                        evaluate(win);
+                        input = "";
+                    }
                 }
             });
         }
         this.add(buttonsPanel, BorderLayout.NORTH);
         buttonsPanel.add(startButton);
 
-        JButton replayButton = new JButton("Replay sequence");
         buttonsPanel.add(replayButton);
         replayButton.addActionListener(new ActionListener() {
             @Override
@@ -83,6 +103,25 @@ public class SimonWindow extends JFrame {
             }
         });
         this.add(gridPanel, BorderLayout.CENTER);
+    }
+
+    void evaluate(boolean win){
+        int option = JOptionPane.showConfirmDialog(null, "test","Test", JOptionPane.YES_NO_OPTION);
+        System.out.println(option);
+        if (option == 0){
+            sequence = getSequence(DIFFICULTY);
+            highlightSequence(500,new Color(0x03F825));
+            input = "";
+        } else {
+            JOptionPane.showMessageDialog(null, "Game over, bye", "Bye", JOptionPane.INFORMATION_MESSAGE);
+            System.exit(0);
+        }
+    }
+
+    void resetGame(){
+        sequence = getSequence(DIFFICULTY);
+        highlightSequence(500,new Color(0x03F825));
+        input = "";
     }
 
     public static void main(String[] args) {
