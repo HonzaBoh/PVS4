@@ -11,8 +11,12 @@ public class SimonWindow extends JFrame {
     ArrayList<SimonButton> buttons = new ArrayList<>();
     String sequence;
     String input = "";
+    int timeDifficulty = 0;
+    int lengthDifficulty = 0;
+    int gameCounter = 1;
 
     final int DIFFICULTY = 5;
+    final int HIGHLIGHT_DURATION = 500;
 
     String getSequence(int length){
         String sequence = "";
@@ -64,6 +68,7 @@ public class SimonWindow extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 replayButton.setEnabled(true);
+                startButton.setText("Replay Game");
                 resetGame();
 //                gridPanel.paintImmediately(0,0,getWidth(),getHeight());
             }
@@ -79,7 +84,7 @@ public class SimonWindow extends JFrame {
                 public void actionPerformed(ActionEvent e) {
                     input += toAdd.getText();
                     System.out.println("Input: " + input);
-                    if (input.length() == DIFFICULTY){
+                    if (input.length() == DIFFICULTY + lengthDifficulty){
                         boolean win;
                             if (sequence.equals(input)){
                                 win = true;
@@ -99,28 +104,47 @@ public class SimonWindow extends JFrame {
         replayButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                highlightSequence(1000,Color.orange);
+                highlightSequence(HIGHLIGHT_DURATION - timeDifficulty,Color.orange);
             }
         });
         this.add(gridPanel, BorderLayout.CENTER);
     }
 
     void evaluate(boolean win){
-        int option = JOptionPane.showConfirmDialog(null, "test","Test", JOptionPane.YES_NO_OPTION);
-        System.out.println(option);
-        if (option == 0){
-            sequence = getSequence(DIFFICULTY);
-            highlightSequence(500,new Color(0x03F825));
-            input = "";
+        if (win){
+            int option = JOptionPane.showConfirmDialog(null, "Success. Play again?", "Game over", JOptionPane.YES_NO_OPTION);
+            System.out.println(option);
+            if (option == 0) {
+                gameCounter++;
+                if (gameCounter % 2 == 0)
+                    lengthDifficulty += 1;
+                timeDifficulty += 50;
+                sequence = getSequence(DIFFICULTY + lengthDifficulty);
+                highlightSequence(HIGHLIGHT_DURATION - timeDifficulty, new Color(0x03F825));
+                input = "";
+            } else {
+                JOptionPane.showMessageDialog(null, "Game over, bye", "Bye", JOptionPane.INFORMATION_MESSAGE);
+                System.exit(0);
+            }
         } else {
-            JOptionPane.showMessageDialog(null, "Game over, bye", "Bye", JOptionPane.INFORMATION_MESSAGE);
-            System.exit(0);
+            int option = JOptionPane.showConfirmDialog(null, "Wrong sequence. Play again?", "Game over", JOptionPane.YES_NO_OPTION);
+            System.out.println(option);
+            if (option == 0) {
+                timeDifficulty = 0;
+                lengthDifficulty = 0;
+                resetGame();
+            } else {
+                JOptionPane.showMessageDialog(null, "Game over, bye", "Bye", JOptionPane.INFORMATION_MESSAGE);
+                System.exit(0);
+            }
         }
+
     }
 
     void resetGame(){
+        gameCounter = 1;
         sequence = getSequence(DIFFICULTY);
-        highlightSequence(500,new Color(0x03F825));
+        highlightSequence(HIGHLIGHT_DURATION - timeDifficulty,new Color(0x03F825));
         input = "";
     }
 
