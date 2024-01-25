@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 
 public class MatrixPaint extends JFrame {
     JLabel[][] labels;
-    final static int MATRIX_DIMENSION = 100;
+    final static int MATRIX_DIMENSION = 10;
     JButton button;
 
     MatrixPaint(){
@@ -43,14 +43,14 @@ public class MatrixPaint extends JFrame {
                 for (int i = 0; i < MATRIX_DIMENSION; i++) {
                     for (int j = 0; j < MATRIX_DIMENSION; j++) {
                         try {
-                            Thread.sleep(1);
+                            Thread.sleep(500);
                         } catch (InterruptedException ex) {
                             System.out.println("Thread died :(");
                             throw new RuntimeException(ex);
                         }
                         labels[MATRIX_DIMENSION-i-1][MATRIX_DIMENSION-j-1].setBackground(Color.blue);
-                        button.paintImmediately(0,0,getWidth(),getHeight());
-                        matrixCanvas.paintImmediately(0,0,getWidth(),getHeight());
+//                        button.paintImmediately(0,0,getWidth(),getHeight());
+//                        matrixCanvas.paintImmediately(0,0,getWidth(),getHeight());
                     }
                 }
             }
