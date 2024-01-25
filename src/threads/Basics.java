@@ -5,11 +5,26 @@ import java.util.Arrays;
 public class Basics{
 
     public static void main(String[] args) {
+
+        System.out.println(Thread.currentThread());
+        System.out.println(Thread.activeCount());
         FirstThread thread = new FirstThread();
+        thread.setName("Dedicnost");
         thread.start();
+        System.out.println(thread.getName());
 //        thread.nic();
         IThread myThread = new IThread();
         Thread basicThread = new Thread(myThread);
+        System.out.println(basicThread.getName());
+
+        System.out.println(thread.getPriority());
+        System.out.println(thread.isDaemon());
+        thread.setPriority(10);
+        System.out.println(thread.getPriority());
+
+        System.out.println(basicThread.getPriority());
+//        System.out.println();
+
         basicThread.start();
         System.out.println("Happy ending :)");
     }
