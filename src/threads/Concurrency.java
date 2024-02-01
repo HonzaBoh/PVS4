@@ -5,11 +5,12 @@ public class Concurrency extends Thread{
 
     public static void main(String[] args) {
         Concurrency c = new Concurrency();
-        c.start();
-        //cekam...
+//        c.run();
+        c.start();        //cekam...
         while (c.isAlive()){
             System.out.println("Waiting...");
         }
+
 
         System.out.println(amount);
         amount++;
