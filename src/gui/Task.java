@@ -74,7 +74,8 @@ public class Task extends JFrame {
     }
 
     public static void main(String[] args) {
-        new Task().setVisible(true);
-        System.out.println("Happy ending!");
+        String input = JOptionPane.showInputDialog("neco zadej");
+//        new Task().setVisible(true);
+//        System.out.println("Happy ending!");
     }
 }
