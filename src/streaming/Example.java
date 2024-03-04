@@ -1,16 +1,17 @@
 package streaming;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 
 public class Example {
 
-    public static void main(String[] args) throws IOException {
-        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("output.txt"), 10);
-
-        for (int i = 0; i < 10000; i++) {
-            bufferedWriter.write("Line#" + (1+i) + "\n");
+    public static void main(String[] args) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("Movies.txt"))){
+            String line;
+            while((line = reader.readLine()) != null){
+                System.out.println(line);
+            }
+        }catch (IOException e){
+            System.out.println("Exception? " + e);
         }
 
     }
