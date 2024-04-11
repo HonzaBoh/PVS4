@@ -4,7 +4,7 @@ import java.sql.*;
 
 public class Basics {
 
-    private static final String USERNAME = "neco";
+    private static final String USERNAME = "pvs";
     private static final String PASSWORD = "prg";
     private static final String JDBC_URL = "jdbc:mysql://10.1.12.17:3306/world";
     public static void main(String[] args) {
