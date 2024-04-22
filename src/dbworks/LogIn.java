@@ -36,7 +36,7 @@ public class LogIn extends JFrame{
                 try{
                     Connection connection =
                             DriverManager.getConnection(JDBC_URL, userField.getText(), passField.getText());
-                    new DBrowser().setVisible(true);
+                    new DBrowser(connection).setVisible(true);
                 } catch (SQLException ex) {
                     System.out.println("SQL: " + ex.getMessage());
                     JOptionPane.showMessageDialog(null, "Wrong password...");
